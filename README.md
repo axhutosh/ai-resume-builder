@@ -4,6 +4,8 @@ An AI-powered resume builder with live preview, multiple templates, and Gemini A
 
 ![resume.ai](https://img.shields.io/badge/version-1.0.0-7c3aed?style=flat-square) ![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react) ![Vite](https://img.shields.io/badge/Vite-5-646cff?style=flat-square&logo=vite) ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
+🔗 **Live Demo:** [ai-resume-builder-axhutosh.vercel.app](https://ai-resume-builder-axhutosh.vercel.app)
+
 ---
 
 ## ✨ Features
