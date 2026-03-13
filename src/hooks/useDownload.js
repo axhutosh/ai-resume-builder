@@ -1,18 +1,37 @@
 /**
  * useDownload.js
- * Hook to handle PDF download of the resume preview.
- * TODO: Wire up react-to-print in Phase 1.
+ * Hook to handle PDF download using react-to-print.
+ * Reads the shared resumeRef from ResumeContext.
+ *
+ * Usage:
+ *   const { handleDownload } = useDownload()
+ *   <button onClick={handleDownload}>Download PDF</button>
  */
 
-import { useRef } from 'react'
+import { useReactToPrint } from 'react-to-print'
+import { useResume } from '../context/ResumeContext'
 
 export function useDownload() {
-  const resumeRef = useRef(null)
+  const { resumeData, resumeRef } = useResume()
 
-  const handleDownload = () => {
-    // TODO: Implement with react-to-print
-    console.log('Download triggered — implement with react-to-print')
-  }
+  const handleDownload = useReactToPrint({
+    contentRef: resumeRef,
+    documentTitle: resumeData.personal?.name
+      ? `${resumeData.personal.name} — Resume`
+      : 'Resume',
+    pageStyle: `
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      @media print {
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    `,
+  })
 
-  return { resumeRef, handleDownload }
+  return { handleDownload }
 }

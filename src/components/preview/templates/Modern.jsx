@@ -1,24 +1,21 @@
-/**
- * Modern.jsx
- * Clean, minimal resume template with violet accent line.
- * Props: data — full resumeData object from context
- */
-
 export default function Modern({ data }) {
-  const { personal, summary, experience, education, skills, projects } = data
+  const { personal: p, summary, experience, education, skills, certifications = [], projects } = data
 
   return (
     <div className="tpl-modern">
+
       {/* Header */}
       <div className="tpl-m-header">
         <div>
-          <h1 className="tpl-m-name">{personal.name || 'Your Name'}</h1>
-          <p className="tpl-m-title">{personal.title || 'Professional Title'}</p>
+          <h1 className="tpl-m-name">{p.name || 'Your Name'}</h1>
+          <p className="tpl-m-title">{p.title || 'Professional Title'}</p>
         </div>
         <div className="tpl-m-contact">
-          {personal.email && <span>{personal.email}</span>}
-          {personal.phone && <span>{personal.phone}</span>}
-          {personal.location && <span>{personal.location}</span>}
+          {p.email    && <span>{p.email}</span>}
+          {p.phone    && <span>{p.phone}</span>}
+          {p.location && <span>{p.location}</span>}
+          {p.linkedin && <span>{p.linkedin}</span>}
+          {p.website  && <span>{p.website}</span>}
         </div>
       </div>
 
@@ -34,20 +31,20 @@ export default function Modern({ data }) {
       {experience.some(e => e.company || e.role) && (
         <div className="tpl-section">
           <div className="tpl-section-title">Experience</div>
-          {experience.map(exp => (exp.company || exp.role) ? (
-            <div key={exp.id} className="tpl-entry">
-              <div className="tpl-entry-header">
+          {experience.map(e => (e.company || e.role) ? (
+            <div key={e.id} className="tpl-entry">
+              <div className="tpl-entry-top">
                 <div>
-                  <span className="tpl-entry-main">{exp.role}</span>
-                  {exp.company && <span className="tpl-entry-sub"> · {exp.company}</span>}
+                  <span className="tpl-entry-role">{e.role}</span>
+                  {e.company && <span className="tpl-entry-company"> · {e.company}</span>}
                 </div>
                 <span className="tpl-entry-date">
-                  {exp.startDate}{exp.startDate && ' – '}{exp.current ? 'Present' : exp.endDate}
+                  {e.startDate}{e.startDate && ' – '}{e.current ? 'Present' : e.endDate}
                 </span>
               </div>
-              <ul className="tpl-bullets">
-                {exp.bullets.filter(Boolean).map((b, i) => <li key={i}>{b}</li>)}
-              </ul>
+              {e.bullets.filter(Boolean).length > 0 && (
+                <ul className="tpl-bullets">{e.bullets.filter(Boolean).map((b, i) => <li key={i}>{b}</li>)}</ul>
+              )}
             </div>
           ) : null)}
         </div>
@@ -57,14 +54,14 @@ export default function Modern({ data }) {
       {education.some(e => e.school) && (
         <div className="tpl-section">
           <div className="tpl-section-title">Education</div>
-          {education.map(edu => edu.school ? (
-            <div key={edu.id} className="tpl-entry">
-              <div className="tpl-entry-header">
+          {education.map(e => e.school ? (
+            <div key={e.id} className="tpl-entry">
+              <div className="tpl-entry-top">
                 <div>
-                  <span className="tpl-entry-main">{edu.degree} {edu.field}</span>
-                  <span className="tpl-entry-sub"> · {edu.school}</span>
+                  <span className="tpl-entry-role">{[e.degree, e.field].filter(Boolean).join(' in ')}</span>
+                  <span className="tpl-entry-company"> · {e.school}</span>
                 </div>
-                <span className="tpl-entry-date">{edu.year}</span>
+                <span className="tpl-entry-date">{e.year}{e.gpa ? ` · GPA ${e.gpa}` : ''}</span>
               </div>
             </div>
           ) : null)}
@@ -84,21 +81,38 @@ export default function Modern({ data }) {
         </div>
       )}
 
+      {/* Certifications */}
+      {certifications.some(c => c.name) && (
+        <div className="tpl-section">
+          <div className="tpl-section-title">Certifications</div>
+          {certifications.map(c => c.name ? (
+            <div key={c.id} className="tpl-entry">
+              <div className="tpl-entry-top">
+                <span className="tpl-entry-role">{c.name}</span>
+                <span className="tpl-entry-date">{[c.issuer, c.year].filter(Boolean).join(' · ')}</span>
+              </div>
+            </div>
+          ) : null)}
+        </div>
+      )}
+
       {/* Projects */}
       {projects.some(p => p.name) && (
         <div className="tpl-section">
           <div className="tpl-section-title">Projects</div>
           {projects.map(p => p.name ? (
             <div key={p.id} className="tpl-entry">
-              <div className="tpl-entry-header">
-                <span className="tpl-entry-main">{p.name}</span>
+              <div className="tpl-entry-top">
+                <span className="tpl-entry-role">{p.name}</span>
                 {p.techStack && <span className="tpl-tech-tag">{p.techStack}</span>}
               </div>
               {p.description && <p className="tpl-body-text">{p.description}</p>}
+              {p.link && <span style={{fontSize:11.5, color:'#6366f1'}}>{p.link}</span>}
             </div>
           ) : null)}
         </div>
       )}
+
     </div>
   )
 }

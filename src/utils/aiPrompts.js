@@ -1,21 +1,29 @@
 /**
  * aiPrompts.js
  * Prompt templates for each AI feature.
- * TODO: Wire these up to the Claude API in Phase 2.
+ * Currently supports: improveSummary
+ * More prompts to be added in future phases.
  */
 
-export const PROMPTS = {
-  /**
-   * Improve the user's professional summary.
-   * @param {string} currentSummary
-   * @returns {string} prompt
-   */
-  improveSummary: (currentSummary) => `
-You are an expert resume writer. Improve the following professional summary to make it more
-impactful, concise, and results-oriented. Use strong action words and avoid generic phrases.
-Keep it to 2-3 sentences. Return ONLY the improved text, nothing else.
+/**
+ * Prompt to improve a professional summary.
+ * @param {string} currentSummary - the user's existing summary text
+ * @returns {string} full prompt string to send to Gemini
+ */
+export const improveSummaryPrompt = (currentSummary) => `
+You are an expert resume writer with 10+ years of experience helping professionals land jobs at top companies.
 
-Current summary:
-"${currentSummary}"
-  `.trim(),
+Your task is to rewrite the following professional summary to make it:
+- More impactful and results-oriented
+- Concise (2-3 sentences max)
+- Free of clichés like "hardworking", "team player", "passionate"
+- Starting with a strong action-oriented opener
+- ATS-friendly with relevant keywords naturally included
+
+${currentSummary
+  ? `Current summary to improve:\n"${currentSummary}"`
+  : `The user has not written a summary yet. Write a strong general professional summary placeholder they can customize.`
 }
+
+Return ONLY the improved summary text. No explanations, no quotes, no preamble.
+`.trim()

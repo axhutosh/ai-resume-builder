@@ -1,16 +1,19 @@
 /**
  * ResumeContext.jsx
- * Global state for all resume data.
+ * Global state for all resume data + shared download ref.
  * Wrap the app in <ResumeProvider> to give all components access.
  */
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useRef } from 'react'
 import { defaultResumeData } from '../utils/resumeSchema'
 
 const ResumeContext = createContext(null)
 
 export function ResumeProvider({ children }) {
   const [resumeData, setResumeData] = useState(defaultResumeData)
+
+  // Shared ref for the resume preview element — used by useDownload
+  const resumeRef = useRef(null)
 
   /**
    * Update a top-level section of resume data.
@@ -36,7 +39,7 @@ export function ResumeProvider({ children }) {
   const resetResume = () => setResumeData(defaultResumeData)
 
   return (
-    <ResumeContext.Provider value={{ resumeData, updateSection, updateMeta, resetResume }}>
+    <ResumeContext.Provider value={{ resumeData, updateSection, updateMeta, resetResume, resumeRef }}>
       {children}
     </ResumeContext.Provider>
   )
