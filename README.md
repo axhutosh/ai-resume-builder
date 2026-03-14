@@ -1,8 +1,8 @@
-# resume.ai 🚀
+# Resumo 🚀
 
 An AI-powered resume builder with live preview, multiple templates, and Gemini AI integration.
 
-![resume.ai](https://img.shields.io/badge/version-1.0.0-7c3aed?style=flat-square) ![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react) ![Vite](https://img.shields.io/badge/Vite-5-646cff?style=flat-square&logo=vite) ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
+![version](https://img.shields.io/badge/version-1.0.0-7c3aed?style=flat-square) ![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react) ![Vite](https://img.shields.io/badge/Vite-5-646cff?style=flat-square&logo=vite) ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
 🔗 **Live Demo:** [ai-resume-builder-axhutosh.vercel.app](https://ai-resume-builder-axhutosh.vercel.app)
 
@@ -10,12 +10,12 @@ An AI-powered resume builder with live preview, multiple templates, and Gemini A
 
 ## ✨ Features
 
+- **AI Onboarding** — Answer 4 questions, AI pre-fills your entire resume
 - **Live Preview** — See your resume update in real time as you type
 - **3 Templates** — Modern, Classic, and Creative layouts
-- **AI-Powered** — Improve your professional summary with Gemini AI
+- **AI Summary** — Improve your professional summary with one click
 - **All Sections** — Personal Info, Summary, Experience, Education, Skills, Certifications, Projects
 - **PDF Export** — Download a print-ready PDF in one click
-- **Clean Editor** — Accordion sections, inline validation, smooth UX
 
 ---
 
@@ -26,7 +26,7 @@ An AI-powered resume builder with live preview, multiple templates, and Gemini A
 | Frontend | React 18 + Vite |
 | Styling | Custom CSS (inline styles) |
 | AI | Google Gemini 1.5 Flash |
-| PDF | react-to-print |
+| PDF | react-to-print v3 |
 | State | React Context API |
 | Deploy | Vercel |
 
@@ -36,13 +36,13 @@ An AI-powered resume builder with live preview, multiple templates, and Gemini A
 
 ### Prerequisites
 - Node.js 18+
-- A [Google Gemini API key](https://aistudio.google.com/app/apikey)
+- A [Google Gemini API key](https://aistudio.google.com/app/apikey) — free tier available
 
 ### Installation
 
 ```bash
-git clone https://github.com/axhutosh/ai-resume-builder.git
-cd ai-resume-builder
+git clone https://github.com/axhutosh/resumo.git
+cd resumo
 npm install
 ```
 
@@ -53,6 +53,9 @@ Create a `.env.local` file in the project root:
 ```env
 VITE_GEMINI_API_KEY=your_gemini_api_key_here
 ```
+
+> Get a free key at [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+> Free tier: 15 requests/min, 1500 requests/day
 
 ### Run Locally
 
@@ -70,14 +73,14 @@ Open [http://localhost:5173](http://localhost:5173)
 src/
 ├── components/
 │   ├── layout/
-│   │   ├── Header.jsx          # Template switcher + PDF button
-│   │   └── SplitLayout.jsx     # 50/50 split pane
+│   │   ├── Header.jsx              # Template switcher + PDF button
+│   │   └── SplitLayout.jsx         # 50/50 split pane + AI panel
 │   ├── editor/
-│   │   ├── EditorPanel.jsx     # Shared styles + panel shell
-│   │   ├── SectionAccordion.jsx
+│   │   ├── EditorPanel.jsx         # Shared styles + panel shell
+│   │   ├── SectionAccordion.jsx    # Collapsible section wrapper
 │   │   └── sections/
 │   │       ├── PersonalInfo.jsx
-│   │       ├── Summary.jsx     # AI trigger button
+│   │       ├── Summary.jsx         # AI improve button
 │   │       ├── Experience.jsx
 │   │       ├── Education.jsx
 │   │       ├── Skills.jsx
@@ -89,16 +92,19 @@ src/
 │   │       ├── Modern.jsx
 │   │       ├── Classic.jsx
 │   │       └── Creative.jsx
-│   └── ai/
-│       └── AIPanel.jsx
+│   ├── ai/
+│   │   └── AIPanel.jsx             # Sliding AI suggestions panel
+│   └── onboarding/
+│       └── OnboardingModal.jsx     # AI-powered wizard on first load
 ├── context/
-│   └── ResumeContext.jsx       # Global state + resumeRef
+│   └── ResumeContext.jsx           # Global state + resumeRef
 ├── hooks/
-│   ├── useAI.js                # Gemini API integration
-│   └── useDownload.js          # react-to-print
+│   ├── useAI.js                    # Gemini API calls
+│   ├── useOnboarding.js            # AI resume pre-fill logic
+│   └── useDownload.js              # react-to-print PDF export
 └── utils/
-    ├── resumeSchema.js         # Default data shape
-    └── aiPrompts.js            # Prompt templates
+    ├── resumeSchema.js             # Default data shape
+    └── aiPrompts.js                # All Gemini prompt templates
 ```
 
 ---
@@ -106,39 +112,30 @@ src/
 ## 🌿 Branch Strategy
 
 ```
-main        ← stable, production-ready
-staging     ← pre-release review
+main        ← stable, production (auto-deploys to Vercel)
+staging     ← pre-release testing
 dev/name    ← personal feature branches
 ```
 
 **Daily workflow:**
-1. Work on `dev/your-name`
-2. Open PR → `staging`
-3. Review + merge
-4. Merge `staging` → `main` to release
+```
+dev/name → PR → staging → PR → main → Vercel 🚀
+```
+
+Never push directly to `main` or `staging`. Always work on your `dev/name` branch and open a PR.
 
 ---
 
-## 🤖 AI Setup
+## 🤝 Contributing
 
-The AI feature uses **Google Gemini 1.5 Flash** to improve professional summaries.
-
-1. Get a free API key at [aistudio.google.com](https://aistudio.google.com/app/apikey)
-2. Add it to `.env.local` as `VITE_GEMINI_API_KEY`
-3. Click **✨ Improve with AI** in the Summary section
-
-> Free tier: 15 requests/min, 1500 requests/day
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for full guidelines.
 
 ---
 
-## 📦 Deployment
+## 🗺️ Roadmap
 
-Deployed on **Vercel**. Every push to `main` triggers an automatic redeploy.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/axhutosh/ai-resume-builder)
-
----
-
-## 📄 License
-
-MIT © 2025 axhutosh
+- [x] v1.0 — Resume builder, 3 templates, PDF export
+- [x] v1.1 — AI onboarding wizard, AI summary improvement
+- [ ] v1.2 — Auth + saved resumes (multiple resumes per user)
+- [ ] v1.3 — More templates, custom accent colors
+- [ ] v1.4 — Job description matcher (tailor resume to a JD)
