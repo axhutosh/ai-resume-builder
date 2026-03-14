@@ -271,7 +271,7 @@ export default function OnboardingModal({ onClose }) {
               </svg>
             </div>
             <div>
-              <h1 style={s.landingTitle}>Welcome to resume<span style={{color:'#7c3aed'}}>.ai</span></h1>
+              <h1 style={s.landingTitle}>Welcome to <span style={{color:'#7c3aed'}}>Resumo</span></h1>
               <p style={s.landingSubtitle}>Build a professional resume in minutes.<br/>How would you like to start?</p>
             </div>
             <div style={s.optionsWrap}>
