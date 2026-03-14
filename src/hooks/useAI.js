@@ -1,18 +1,18 @@
 /**
  * useAI.js
- * Hook for calling the Gemini 2.0 Flash API.
+ * Hook for calling the Gemini API.
  * Uses VITE_GEMINI_API_KEY from .env.local
  *
  * Usage:
- *   const { generate, loading, error } = useAI()
- *   const result = await generate(prompt)
+ * const { generate, loading, error } = useAI()
+ * const result = await generate(prompt)
  */
 
 import { useState } from 'react'
 
+// UPDATED: Now pointing to the Gemini 2.0 Flash endpoint
 const GEMINI_API_URL =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
-
+  'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent'
 export function useAI() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState(null)
