@@ -39,7 +39,7 @@ export default function Header() {
       {/* Brand */}
       <div className="header-brand">
         <div className="brand-icon"><LogoIcon /></div>
-        <span className="brand-name">resume<span>.ai</span></span>
+        <span className="brand-name">Resu<span>mo</span></span>
       </div>
 
       {/* Template switcher */}
