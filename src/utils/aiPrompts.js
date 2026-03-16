@@ -27,3 +27,37 @@ ${currentSummary
 
 Return ONLY the improved summary text. No explanations, no quotes, no preamble.
 `.trim()
+
+
+/**
+ * Prompt to generate a full pre-filled resume from onboarding answers.
+ */
+export const generateResumePrompt = ({ name, title, company, experience, education, skills, goal }) => `
+You are an expert resume writer. Based on the details below, generate professional resume content.
+
+Person details:
+- Name: ${name}
+- Current/Target Job Title: ${title}
+- Current/Last Company: ${company || 'Not provided'}
+- Years of Experience: ${experience}
+- Education: ${education}
+- Key Skills: ${skills}
+- Career Goal: ${goal}
+
+Generate a JSON object with exactly this structure:
+{
+  "summary": "A 2-3 sentence professional summary, results-oriented, no clichés",
+  "experienceBullets": [
+    "Strong achievement bullet point 1",
+    "Strong achievement bullet point 2",
+    "Strong achievement bullet point 3"
+  ],
+  "suggestedSkills": "comma separated list of 8-10 relevant technical and soft skills"
+}
+
+Rules:
+- summary must be 2-3 sentences, punchy and ATS-friendly
+- experienceBullets must start with strong action verbs, include metrics where possible
+- suggestedSkills should match the job title and skills provided
+- Return ONLY valid JSON, no markdown, no explanation, no code blocks
+`.trim()
