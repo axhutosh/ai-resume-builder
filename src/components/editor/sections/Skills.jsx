@@ -31,7 +31,7 @@ export default function Skills() {
   const removeEntry = (i) => updateSection('skills', data.filter((_, idx) => idx !== i))
 
   return (
-    <SectionAccordion title="Skills" icon={<SectionIcon />} defaultOpen={false}>
+    <SectionAccordion id="skills" title="Skills" icon={<SectionIcon />} defaultOpen={false}>
       {data.map((skill, i) => (
         <div key={skill.id} style={S.entry}>
           <div style={S.entryHeader}>

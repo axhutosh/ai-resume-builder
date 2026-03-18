@@ -31,7 +31,7 @@ export default function Certifications() {
   const removeEntry = (i) => updateSection('certifications', data.filter((_, idx) => idx !== i))
 
   return (
-    <SectionAccordion title="Certifications" icon={<SectionIcon />} defaultOpen={false}>
+    <SectionAccordion id="certifications" title="Certifications" icon={<SectionIcon />} defaultOpen={false}>
       {data.map((cert, i) => (
         <div key={cert.id} style={S.entry}>
           <div style={S.entryHeader}>
