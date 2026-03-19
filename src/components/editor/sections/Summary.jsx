@@ -20,7 +20,7 @@ export default function Summary({ onOpenAI }) {
   const [focused, setFocused] = useState(false)
 
   return (
-    <SectionAccordion title="Professional Summary" icon={<SectionIcon />}>
+    <SectionAccordion id="summary" title="Professional Summary" icon={<SectionIcon />}>
       <textarea
         style={{
           ...S.textarea,

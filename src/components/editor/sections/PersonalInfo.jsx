@@ -50,7 +50,7 @@ export default function PersonalInfo() {
   const up = (f, v) => updateSection('personal', { ...d, [f]: v })
 
   return (
-    <SectionAccordion title="Personal Info" icon={<SectionIcon />}>
+    <SectionAccordion id="personal" title="Personal Info" icon={<SectionIcon />}>
       <div style={S.row2}>
         <Field label="Full Name"  icon={icons.user}  placeholder="Jane Doe"         value={d.name}     onChange={v => up('name', v)} />
         <Field label="Job Title"  icon={icons.brief} placeholder="Product Designer" value={d.title}    onChange={v => up('title', v)} />

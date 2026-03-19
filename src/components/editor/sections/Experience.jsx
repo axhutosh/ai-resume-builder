@@ -35,7 +35,7 @@ export default function Experience() {
   const removeEntry = (i) => updateSection('experience', data.filter((_, idx) => idx !== i))
 
   return (
-    <SectionAccordion title="Work Experience" icon={<SectionIcon />}>
+    <SectionAccordion id="experience" title="Work Experience" icon={<SectionIcon />}>
       {data.map((exp, i) => (
         <div key={exp.id} style={S.entry}>
           <div style={S.entryHeader}>

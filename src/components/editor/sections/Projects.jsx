@@ -42,7 +42,7 @@ export default function Projects() {
   const removeEntry = (i) => updateSection('projects', data.filter((_, idx) => idx !== i))
 
   return (
-    <SectionAccordion title="Projects" icon={<SectionIcon />} defaultOpen={false}>
+    <SectionAccordion id="projects" title="Projects" icon={<SectionIcon />} defaultOpen={false}>
       {data.map((proj, i) => (
         <div key={proj.id} style={S.entry}>
           <div style={S.entryHeader}>

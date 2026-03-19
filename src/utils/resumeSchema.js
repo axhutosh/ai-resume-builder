@@ -1,3 +1,18 @@
+export const DEFAULT_SECTION_ORDER = [
+  'personal', 'summary', 'experience', 'education',
+  'certifications', 'skills', 'projects'
+]
+
+export const DEFAULT_SECTION_TITLES = {
+  personal:       'Personal Info',
+  summary:        'Professional Summary',
+  experience:     'Work Experience',
+  education:      'Education',
+  skills:         'Skills',
+  certifications: 'Certifications',
+  projects:       'Projects',
+}
+
 export const defaultResumeData = {
   personal: {
     name: '', title: '', email: '', phone: '',
@@ -20,7 +35,10 @@ export const defaultResumeData = {
     { id: crypto.randomUUID(), name: '', description: '', techStack: '', link: '' },
   ],
   meta: {
-    template: 'modern',
-    accentColor: '#6d28d9',
+    template:      'modern',
+    accentColor:   '#6d28d9',
+    sectionOrder:  [...DEFAULT_SECTION_ORDER],
+    hiddenSections: [],
+    sectionTitles: { ...DEFAULT_SECTION_TITLES },
   },
 }
