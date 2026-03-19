@@ -1,10 +1,32 @@
-import PersonalInfo     from './sections/PersonalInfo'
-import Summary          from './sections/Summary'
-import Experience       from './sections/Experience'
-import Education        from './sections/Education'
-import Skills           from './sections/Skills'
-import Certifications   from './sections/Certifications'
-import Projects         from './sections/Projects'
+import {
+  DndContext, closestCenter, PointerSensor,
+  useSensor, useSensors, DragOverlay,
+} from '@dnd-kit/core'
+import {
+  SortableContext, verticalListSortingStrategy, arrayMove,
+} from '@dnd-kit/sortable'
+
+import { useResume } from '../../context/ResumeContext'
+import { DEFAULT_SECTION_ORDER } from '../../utils/resumeSchema'
+
+import PersonalInfo   from './sections/PersonalInfo'
+import Summary        from './sections/Summary'
+import Experience     from './sections/Experience'
+import Education      from './sections/Education'
+import Skills         from './sections/Skills'
+import Certifications from './sections/Certifications'
+import Projects       from './sections/Projects'
+
+// Map section id → component
+const SECTION_MAP = {
+  personal:       (props) => <PersonalInfo     {...props} />,
+  summary:        (props) => <Summary          {...props} />,
+  experience:     (props) => <Experience       {...props} />,
+  education:      (props) => <Education        {...props} />,
+  certifications: (props) => <Certifications   {...props} />,
+  skills:         (props) => <Skills           {...props} />,
+  projects:       (props) => <Projects         {...props} />,
+}
 
 export const S = {
   panel: {
@@ -122,19 +144,40 @@ export const S = {
 }
 
 export default function EditorPanel({ onOpenAI }) {
+  const { resumeData, reorderSections } = useResume()
+  const order = resumeData.meta.sectionOrder || DEFAULT_SECTION_ORDER
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
+  )
+
+  const handleDragEnd = ({ active, over }) => {
+    if (!over || active.id === over.id) return
+    const oldIndex = order.indexOf(active.id)
+    const newIndex = order.indexOf(over.id)
+    reorderSections(arrayMove(order, oldIndex, newIndex))
+  }
+
   return (
     <div style={S.panel}>
       <div style={S.topbar}>
         <p style={S.heading}>Your Details</p>
       </div>
+
       <div style={S.sections}>
-        <PersonalInfo />
-        <Summary onOpenAI={onOpenAI} />
-        <Experience />
-        <Education />
-        <Certifications />
-        <Skills />
-        <Projects />
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={order} strategy={verticalListSortingStrategy}>
+            {order.map(sectionId => {
+              const Component = SECTION_MAP[sectionId]
+              if (!Component) return null
+              return <Component key={sectionId} onOpenAI={onOpenAI} />
+            })}
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   )
