@@ -675,3 +675,301 @@ button, input, textarea, select {
 .tpl-cr-bullets { padding-left: 14px; margin-top: 4px; }
 .tpl-cr-bullets li { font-size: 12.5px; color: var(--gray-700); line-height: 1.6; margin-bottom: 3px; }
 .tpl-cr-tech { font-size: 11px; font-weight: 500; color: var(--indigo); }
+/* ─────────────────────────────────────────────
+   DARK THEME
+───────────────────────────────────────────── */
+[data-theme="dark"] {
+  --white:         #1a1b2e;
+  --gray-50:       #1e1f32;
+  --gray-100:      #252638;
+  --gray-150:      #2c2d44;
+  --gray-200:      #363750;
+  --gray-300:      #484a66;
+  --gray-400:      #6e7090;
+  --gray-500:      #9092b0;
+  --gray-600:      #b0b2cc;
+  --gray-700:      #cfd0e2;
+  --gray-800:      #e2e4f2;
+  --gray-900:      #f0f0fc;
+  --violet:        #a78bfa;
+  --violet-mid:    #c4b5fd;
+  --violet-light:  #ddd6fe;
+  --violet-pale:   #2d1f5e;
+  --violet-faint:  #1e1545;
+  --indigo:        #818cf8;
+  --indigo-light:  #a5b4fc;
+  --danger-pale:   #3b1212;
+  --shadow-xs:     0 1px 2px rgba(0,0,0,.3);
+  --shadow-sm:     0 1px 4px rgba(0,0,0,.4);
+  --shadow-lg:     0 12px 40px rgba(0,0,0,.5);
+  --shadow-violet: 0 4px 14px rgba(167,139,250,.3);
+}
+
+/* Resume sheet always stays white — it's paper */
+[data-theme="dark"] .resume-sheet {
+  background: #ffffff !important;
+  color-scheme: light;
+}
+
+/* Dark mode error box */
+[data-theme="dark"] .ai-error-box  { background: #2d1212; border-color: #7f1d1d; }
+[data-theme="dark"] .ai-error-text { color: #fca5a5; }
+
+/* ─────────────────────────────────────────────
+   HEADER LAYOUT FIXES
+───────────────────────────────────────────── */
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────
+   THEME TOGGLE BUTTON
+───────────────────────────────────────────── */
+.btn-theme-toggle {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.btn-theme-toggle:hover {
+  background: var(--violet-faint);
+  border-color: var(--violet-pale);
+  color: var(--violet);
+}
+/* ─────────────────────────────────────────────
+   DARK MODE — EDITOR PANEL OVERRIDES
+───────────────────────────────────────────── */
+[data-theme="dark"] .app-wrapper {
+  background: var(--gray-50);
+  color: var(--gray-800);
+}
+
+[data-theme="dark"] .app-header {
+  background: var(--gray-100);
+  border-bottom-color: var(--gray-200);
+}
+
+/* Editor left panel */
+[data-theme="dark"] .editor-sections,
+[data-theme="dark"] .editor-topbar,
+[data-theme="dark"] .editor-heading {
+  background: var(--gray-50);
+  color: var(--gray-400);
+}
+
+/* Section accordion cards */
+[data-theme="dark"] .section-card {
+  background: var(--gray-100) !important;
+  border-color: var(--gray-200) !important;
+}
+
+[data-theme="dark"] .section-header {
+  background: var(--gray-150) !important;
+}
+
+[data-theme="dark"] .section-header:hover {
+  background: var(--violet-faint) !important;
+}
+
+[data-theme="dark"] .section-title {
+  color: var(--gray-700) !important;
+}
+
+[data-theme="dark"] .section-body {
+  background: var(--gray-100);
+  border-top-color: var(--gray-200) !important;
+}
+
+/* All inputs, textareas */
+[data-theme="dark"] .field-input,
+[data-theme="dark"] .field-textarea,
+[data-theme="dark"] .bullet-input {
+  background: var(--gray-150) !important;
+  border-color: var(--gray-200) !important;
+  color: var(--gray-800) !important;
+}
+
+[data-theme="dark"] .field-input::placeholder,
+[data-theme="dark"] .field-textarea::placeholder,
+[data-theme="dark"] .bullet-input::placeholder {
+  color: var(--gray-400) !important;
+}
+
+[data-theme="dark"] .field-input:focus,
+[data-theme="dark"] .field-textarea:focus,
+[data-theme="dark"] .bullet-input:focus {
+  background: var(--gray-100) !important;
+  border-color: var(--violet-light) !important;
+}
+
+/* Field labels */
+[data-theme="dark"] .field-label {
+  color: var(--gray-500) !important;
+}
+
+/* Repeatable entries */
+[data-theme="dark"] .repeatable-entry {
+  background: var(--gray-150) !important;
+  border-color: var(--gray-200) !important;
+}
+
+/* Add entry button */
+[data-theme="dark"] .btn-add-entry {
+  border-color: var(--gray-300) !important;
+  color: var(--gray-500) !important;
+}
+
+/* Checkbox */
+[data-theme="dark"] .checkbox-wrap {
+  color: var(--gray-600) !important;
+}
+
+/* Preview panel background */
+[data-theme="dark"] .preview-panel {
+  background: var(--gray-100) !important;
+}
+
+[data-theme="dark"] .preview-live-label {
+  color: var(--gray-400) !important;
+}
+
+/* AI panel */
+[data-theme="dark"] .ai-panel {
+  background: var(--gray-100) !important;
+  border-left-color: var(--gray-200) !important;
+}
+
+[data-theme="dark"] .ai-panel-header {
+  background: var(--gray-150) !important;
+  border-bottom-color: var(--gray-200) !important;
+}
+
+[data-theme="dark"] .ai-panel-title {
+  color: var(--gray-800) !important;
+}
+
+[data-theme="dark"] .ai-box.current {
+  background: var(--gray-150) !important;
+  border-color: var(--gray-200) !important;
+}
+
+[data-theme="dark"] .ai-box-text {
+  color: var(--gray-700) !important;
+}
+
+[data-theme="dark"] .ai-panel-footer {
+  border-top-color: var(--gray-200) !important;
+}
+
+[data-theme="dark"] .ai-panel-close {
+  background: var(--gray-100) !important;
+  border-color: var(--gray-200) !important;
+  color: var(--gray-500) !important;
+}
+
+/* Tpl tabs */
+[data-theme="dark"] .tpl-tabs {
+  background: var(--gray-150) !important;
+  border-color: var(--gray-200) !important;
+}
+
+[data-theme="dark"] .tpl-tab.active {
+  background: var(--gray-100) !important;
+}
+
+/* Download button — keep it vibrant */
+[data-theme="dark"] .btn-download {
+  box-shadow: 0 4px 14px rgba(167,139,250,.4);
+}
+
+/* ─────────────────────────────────────────────
+   DARK MODE — input & text fixes
+───────────────────────────────────────────── */
+[data-theme="dark"] .field-input,
+[data-theme="dark"] .field-textarea,
+[data-theme="dark"] .bullet-input {
+  background: var(--gray-100) !important;
+  color: var(--gray-900) !important;
+  border-color: var(--gray-200) !important;
+}
+
+[data-theme="dark"] .field-input::placeholder,
+[data-theme="dark"] .field-textarea::placeholder,
+[data-theme="dark"] .bullet-input::placeholder {
+  color: var(--gray-400) !important;
+}
+
+[data-theme="dark"] .field-label {
+  color: var(--gray-500) !important;
+}
+
+[data-theme="dark"] .repeatable-entry {
+  background: var(--gray-100) !important;
+  border-color: var(--gray-200) !important;
+}
+
+[data-theme="dark"] .checkbox-wrap {
+  color: var(--gray-600) !important;
+}
+
+[data-theme="dark"] .editor-sections::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+}
+/* ─────────────────────────────────────────────
+   DARK MODE — force readable text on all inputs
+───────────────────────────────────────────── */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+  color: var(--gray-900) !important;
+  background: var(--gray-100) !important;
+  border-color: var(--gray-200) !important;
+  caret-color: var(--violet) !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--gray-400) !important;
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+  background: var(--gray-150) !important;
+  border-color: var(--violet-light) !important;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15) !important;
+}
+/* ─────────────────────────────────────────────
+   RESUME SHEET — always light (it's paper)
+───────────────────────────────────────────── */
+[data-theme="dark"] .resume-sheet {
+  background: #ffffff !important;
+  color-scheme: light;
+}
+
+[data-theme="dark"] .resume-sheet * {
+  color: revert !important;
+  background: revert !important;
+  border-color: revert !important;
+}
+
+[data-theme="dark"] .resume-sheet {
+  color: #111827 !important;
+}
