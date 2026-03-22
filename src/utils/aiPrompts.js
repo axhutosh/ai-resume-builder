@@ -61,3 +61,100 @@ Rules:
 - suggestedSkills should match the job title and skills provided
 - Return ONLY valid JSON, no markdown, no explanation, no code blocks
 `.trim()
+
+
+
+/**
+ * Prompt to analyze resume for ATS compatibility and return a score + feedback.
+ */
+export const atsScorePrompt = (resumeData) => {
+  const { personal: p, summary, experience, education, skills, certifications, projects } = resumeData
+
+  const resumeText = `
+Name: ${p.name} | Title: ${p.title}
+Contact: ${[p.email, p.phone, p.location, p.linkedin, p.website].filter(Boolean).join(', ')}
+
+SUMMARY:
+${summary || 'Not provided'}
+
+EXPERIENCE:
+${experience.map(e => `${e.role} at ${e.company} (${e.startDate} - ${e.current ? 'Present' : e.endDate})
+${e.bullets.filter(Boolean).join('\n')}`).join('\n\n')}
+
+EDUCATION:
+${education.map(e => `${e.degree} in ${e.field} - ${e.school} (${e.year})`).join('\n')}
+
+SKILLS:
+${skills.map(s => `${s.category}: ${s.items}`).join('\n')}
+
+CERTIFICATIONS:
+${certifications?.map(c => `${c.name} - ${c.issuer} (${c.year})`).join('\n') || 'None'}
+
+PROJECTS:
+${projects.map(p => `${p.name}: ${p.description}`).join('\n')}
+`.trim()
+
+  return `
+You are an expert ATS (Applicant Tracking System) analyst and resume coach.
+
+Analyze this resume for ATS compatibility and return a JSON object with this exact structure:
+{
+  "score": <number 0-100>,
+  "grade": "<A/B/C/D/F>",
+  "summary": "<2 sentence overall verdict>",
+  "categories": [
+    {
+      "name": "Contact Information",
+      "score": <0-100>,
+      "status": "<pass|warn|fail>",
+      "feedback": "<specific one line feedback>"
+    },
+    {
+      "name": "Professional Summary",
+      "score": <0-100>,
+      "status": "<pass|warn|fail>",
+      "feedback": "<specific one line feedback>"
+    },
+    {
+      "name": "Work Experience",
+      "score": <0-100>,
+      "status": "<pass|warn|fail>",
+      "feedback": "<specific one line feedback>"
+    },
+    {
+      "name": "Skills Section",
+      "score": <0-100>,
+      "status": "<pass|warn|fail>",
+      "feedback": "<specific one line feedback>"
+    },
+    {
+      "name": "Keywords & Action Verbs",
+      "score": <0-100>,
+      "status": "<pass|warn|fail>",
+      "feedback": "<specific one line feedback>"
+    },
+    {
+      "name": "Measurable Achievements",
+      "score": <0-100>,
+      "status": "<pass|warn|fail>",
+      "feedback": "<specific one line feedback>"
+    }
+  ],
+  "quickFixes": [
+    "<specific actionable fix 1>",
+    "<specific actionable fix 2>",
+    "<specific actionable fix 3>"
+  ]
+}
+
+Scoring guidelines:
+- Be strict and realistic. Most resumes score 50-75.
+- Penalize missing sections heavily.
+- Reward quantified achievements, action verbs, complete contact info.
+- quickFixes must be specific to THIS resume, not generic advice.
+- Return ONLY valid JSON. No markdown, no explanation, no code blocks.
+
+Resume to analyze:
+${resumeText}
+`.trim()
+}

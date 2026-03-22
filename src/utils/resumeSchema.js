@@ -13,6 +13,15 @@ export const DEFAULT_SECTION_TITLES = {
   projects:       'Projects',
 }
 
+export const ACCENT_COLORS = [
+  { label: 'Violet', value: '#6d28d9' },
+  { label: 'Indigo', value: '#4338ca' },
+  { label: 'Blue',   value: '#1d4ed8' },
+  { label: 'Teal',   value: '#0f766e' },
+  { label: 'Rose',   value: '#be123c' },
+  { label: 'Slate',  value: '#334155' },
+]
+
 export const defaultResumeData = {
   personal: {
     name: '', title: '', email: '', phone: '',
@@ -34,11 +43,13 @@ export const defaultResumeData = {
   projects: [
     { id: crypto.randomUUID(), name: '', description: '', techStack: '', link: '' },
   ],
+  customSections: [],
   meta: {
-    template:      'modern',
-    accentColor:   '#6d28d9',
-    sectionOrder:  [...DEFAULT_SECTION_ORDER],
+    template:       'modern',
+    accentColor:    '#6d28d9',
+    resumeName:     '',
+    sectionOrder:   [...DEFAULT_SECTION_ORDER],
     hiddenSections: [],
-    sectionTitles: { ...DEFAULT_SECTION_TITLES },
+    sectionTitles:  { ...DEFAULT_SECTION_TITLES },
   },
 }
